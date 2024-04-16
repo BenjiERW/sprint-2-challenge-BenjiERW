@@ -7,27 +7,98 @@
     // 👉 CHALLENGE 1
     function profileActivation(profile, reason) {
 
+    if (profile.active) {
+        
+        if (reason) {
+            profile.active = false;
+            profile.reason = reason;
+            return profile;
+        } else {
+            return "confirm status manually";
+        }
+    } else {
+        profile.active = true;
+        delete profile.reason;
+        return profile;
     }
+}
 
     // 👉 CHALLENGE 2
     function mineSweeper(grid, x, y) {
 
+    if (x < 1 || x > 3 || y < 1 || y > 3) {
+        return "invalid coordinates";
     }
+
+    const value = grid[y - 1][x - 1];
+
+    if (value === "🟥") {
+        return "🟥 💀"; // Hit a mine
+    } else if (value === "🟦") {
+        return "🟦 🥳"; // Safe spot
+    }
+}
 
     // 👉 CHALLENGE 3
     function booleanize(obj) {
 
+    for (let key in obj) {
+        if (key.length > 9) {
+            return "shorten all prop names to 9 chars or less";
+        }
+
+        if (obj[key] === 0) {
+            obj[key] = false;
+        } else if (obj[key] === 1) {
+            obj[key] = true;
+        } else if (obj[key] === null) {
+            delete obj[key];
+        }
     }
+
+    return obj;
+}
+
+
 
     // 👉 CHALLENGE 4
     function scrub(text, forbidden) {
 
+    if (!text || forbidden.length === 0) {
+        return text;
     }
+
+    const cleanText = text.replace(/[^\w\s]/g, "");
+
+    const words = cleanText.split(/\s+/);
+
+    const scrubbedWords = words.map(word => {
+        if (forbidden.includes(word.toLowerCase())) {
+            return "x".repeat(word.length);
+        } else {
+            return word;
+        }
+    });
+
+    const scrubbedText = scrubbedWords.join(" ");
+
+    return scrubbedText;
+}
+
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
     function normalizePhoneNumber(num) {
+    
+    const areaCode = num.substring(0, 3);
+    const prefix = num.substring(3, 6);
+    const lineNumber = num.substring(6);
 
-    }
+    const formattedNumber = `(${areaCode}) ${prefix}-${lineNumber}`;
+
+    return formattedNumber;
+}
+
+
 
     // 👉 CHALLENGE 6 (bonus, NOT graded)
     function diceRolls() {
